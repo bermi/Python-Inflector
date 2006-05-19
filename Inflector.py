@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 
 # Copyright (c) 2006 Bermi Ferrer Martinez
 # info at bermi dot org

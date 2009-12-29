@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 # Copyright (c) 2006 Bermi Ferrer Martinez
-# info at bermi dot org
+#
+# bermi a-t bermilabs - com
 # See the end of this file for the free software, open source license (BSD-style).
 
 import re
@@ -10,9 +11,9 @@ from Rules.Spanish import Spanish
 
 class Inflector :
     """
-    Inflector for pluralize and singularize nouns.
+    Inflector for pluralizing and singularizing nouns.
     
-    It also provides method for helping to create programs 
+    It provides methods for helping on creating programs
     based on naming conventions like on Ruby on Rails.
     """
     

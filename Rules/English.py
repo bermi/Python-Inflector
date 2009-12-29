@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 # Copyright (c) 2006 Bermi Ferrer Martinez
-# info at bermi dot org
+# bermi a-t bermilabs - com
+#
 # See the end of this file for the free software, open source license (BSD-style).
 
 import re

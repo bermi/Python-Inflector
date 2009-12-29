@@ -1,4 +1,4 @@
-Inflector for Python
+# Inflector for Python
 
 The Inflector is used for getting the plural and singular form of nouns. This piece of code helps on creating code that favors convention over configuration.
 

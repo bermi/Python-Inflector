@@ -6,7 +6,7 @@
 # bermi a-t bermilabs - com
 #
 import unittest
-from Inflector import Inflector, English, Spanish
+from inflector import Inflector, English
 
 class EnglishInflectorTestCase(unittest.TestCase):
     singular_to_plural = {

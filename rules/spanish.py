@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+# coding=utf-8
 # Copyright (c) 2006 Bermi Ferrer Martinez
-# Copyright (c) 2006 Carles Sadurní Anguita
+# Copyright (c) 2006 Carles SadurnÃ­ Anguita
 #
 # bermi a-t bermilabs - com
 #
@@ -21,43 +21,43 @@ class Spanish (Base):
     def pluralize(self, word):
         '''Pluralizes Spanish nouns.'''
         rules = [
-            ['(?i)([aeiou])x$', '\\1x'],
+            [ur'(?i)([aeiou])x$', '\\1x'],
             # This could fail if the word is oxytone.
-            ['(?i)([áéíóú])([ns])$', '|1\\2es'],
-            ['(?i)(^[bcdfghjklmnñpqrstvwxyz]*)an$', '\\1anes'],  # clan->clanes
-            ['(?i)([áéíóú])s$', '|1ses'],
-            ['(?i)(^[bcdfghjklmnñpqrstvwxyz]*)([aeiou])([ns])$',
+            [ur'(?i)([Ã¡Ã©Ã­Ã³Ãº])([ns])$', '|1\\2es'],
+            [ur'(?i)(^[bcdfghjklmnÃ±pqrstvwxyz]*)an$', '\\1anes'],  # clan->clanes
+            [ur'(?i)([Ã¡Ã©Ã­Ã³Ãº])s$', '|1ses'],
+            [ur'(?i)(^[bcdfghjklmnÃ±pqrstvwxyz]*)([aeiou])([ns])$',
                 '\\1\\2\\3es'],  # tren->trenes
-            ['(?i)([aeiouáéó])$', '\\1s'],
-            # casa->casas, padre->padres, papá->papás
-            ['(?i)([aeiou])s$', '\\1s'],  # atlas->atlas, virus->virus, etc.
-            ['(?i)([éí])(s)$', '|1\\2es'],  # inglés->ingleses
-            ['(?i)z$', 'ces'],  # luz->luces
-            ['(?i)([íú])$', '\\1es'],  # ceutí->ceutíes, tabú->tabúes
-            ['(?i)(ng|[wckgtp])$', '\\1s'],
+            [ur'(?i)([aeiouÃ¡Ã©Ã³])$', '\\1s'],
+            # casa->casas, padre->padres, papÃ¡->papÃ¡s
+            [ur'(?i)([aeiou])s$', '\\1s'],  # atlas->atlas, virus->virus, etc.
+            [ur'(?i)([Ã©Ã­])(s)$', '|1\\2es'],  # inglÃ©s->ingleses
+            [ur'(?i)z$', 'ces'],  # luz->luces
+            [ur'(?i)([Ã­Ãº])$', '\\1es'],  # ceutÃ­->ceutÃ­es, tabÃº->tabÃºes
+            [ur'(?i)(ng|[wckgtp])$', '\\1s'],
             # Anglicismos como puenting, frac, crack, show (En que casos
-            # podría fallar esto?)
-            ['(?i)$', 'es']  # ELSE +es (v.g. árbol->árboles)
+            # podrÃ­a fallar esto?)
+            [ur'(?i)$', 'es']  # ELSE +es (v.g. Ã¡rbol->Ã¡rboles)
         ]
 
         uncountable_words = ['tijeras', 'gafas', 'vacaciones',
-                             'víveres', 'déficit']
+                             'vÃ­veres', 'dÃ©ficit']
         ''' In fact these words have no singular form: you cannot say neither
-        "una gafa" nor "un vívere". So we should change the variable name to
+        "una gafa" nor "un vÃ­vere". So we should change the variable name to
         onlyplural or something alike.'''
 
         irregular_words = {
-            'país': 'países',
-            'champú': 'champús',
-            'jersey': 'jerséis',
-            'carácter': 'caracteres',
-            'espécimen': 'especímenes',
-            'menú': 'menús',
-            'régimen': 'regímenes',
-            'curriculum': 'currículos',
-            'ultimátum': 'ultimatos',
-            'memorándum': 'memorandos',
-            'referéndum': 'referendos'
+            'paÃ­s': 'paÃ­ses',
+            'champÃº': 'champÃºs',
+            'jersey': 'jersÃ©is',
+            'carÃ¡cter': 'caracteres',
+            'espÃ©cimen': 'especÃ­menes',
+            'menÃº': 'menÃºs',
+            'rÃ©gimen': 'regÃ­menes',
+            'curriculum': 'currÃ­culos',
+            'ultimÃ¡tum': 'ultimatos',
+            'memorÃ¡ndum': 'memorandos',
+            'referÃ©ndum': 'referendos'
         }
 
         lower_cased_word = word.lower()
@@ -80,16 +80,16 @@ class Spanish (Base):
                 if re.match('\|', replacement):
                     for k in range(1, len(groups)):
                         replacement = replacement.replace('|' + str(
-                            k), self.string_replace(groups[k - 1], 'ÁÉÍÓÚáéíóú', 'AEIOUaeiou'))
+                            k), self.string_replace(groups[k - 1], 'ÃÃ‰ÃÃ“ÃšÃ¡Ã©Ã­Ã³Ãº', 'AEIOUaeiou'))
 
                 result = re.sub(rules[rule][0], replacement, word)
                 # Esto acentua los sustantivos que al pluralizarse se
-                # convierten en esdrújulos como esmóquines, jóvenes...
+                # convierten en esdrÃºjulos como esmÃ³quines, jÃ³venes...
                 match = re.search('(?i)([aeiou]).{1,3}([aeiou])nes$', result)
 
-                if match and len(match.groups()) > 1 and not re.search('(?i)[áéíóú]', word):
+                if match and len(match.groups()) > 1 and not re.search('(?i)[Ã¡Ã©Ã­Ã³Ãº]', word):
                     result = result.replace(match.group(0), self.string_replace(
-                        match.group(1), 'AEIOUaeiou', 'ÁÉÍÓÚáéíóú') + match.group(0)[1:])
+                        match.group(1), 'AEIOUaeiou', 'ÃÃ‰ÃÃ“ÃšÃ¡Ã©Ã­Ã³Ãº') + match.group(0)[1:])
 
                 return result
 
@@ -99,35 +99,35 @@ class Spanish (Base):
         '''Singularizes Spanish nouns.'''
 
         rules = [
-            ['(?i)^([bcdfghjklmnñpqrstvwxyz]*)([aeiou])([ns])es$',
+            [ur'(?i)^([bcdfghjklmnÃ±pqrstvwxyz]*)([aeiou])([ns])es$',
                 '\\1\\2\\3'],
-            ['(?i)([aeiou])([ns])es$', '~1\\2'],
-            ['(?i)oides$', 'oide'],  # androides->androide
-            ['(?i)(ces)$/i', 'z'],
-            ['(?i)(sis|tis|xis)+$', '\\1'],  # crisis, apendicitis, praxis
-            ['(?i)(é)s$', '\\1'],  # bebés->bebé
-            ['(?i)([^e])s$', '\\1'],  # casas->casa
-            ['(?i)([bcdfghjklmnñprstvwxyz]{2,}e)s$', '\\1'],  # cofres->cofre
-            ['(?i)([ghñpv]e)s$', '\\1'],  # 24-01 llaves->llave
-            ['(?i)es$', '']  # ELSE remove _es_  monitores->monitor
+            [ur'(?i)([aeiou])([ns])es$', '~1\\2'],
+            [ur'(?i)oides$', 'oide'],  # androides->androide
+            [ur'(?i)(sis|tis|xis)+$', '\\1'],  # crisis, apendicitis, praxis
+            [ur'(?i)(Ã©)s$', '\\1'],  # bebÃ©s->bebÃ©
+            [ur'(?i)(ces)$/i', 'z'],  # luces->luz
+            [ur'(?i)([^e])s$', '\\1'],  # casas->casa
+            [ur'(?i)([bcdfghjklmnÃ±prstvwxyz]{2,}e)s$', '\\1'],  # cofres->cofre
+            [ur'(?i)([ghÃ±pv]e)s$', '\\1'],  # 24-01 llaves->llave
+            [ur'(?i)shes$', 'sh'],  # flashes->flash]
+            [ur'(?i)es$', '']  # ELSE remove _es_  monitores->monitor
         ]
 
         uncountable_words = [
-            'paraguas', 'tijeras', 'gafas', 'vacaciones', 'víveres', 'lunes',
-            'martes', 'miércoles', 'jueves', 'viernes', 'cumpleaños', 'virus', 'atlas', 'sms']
+            'paraguas', 'tijeras', 'gafas', 'vacaciones', 'vÃ­veres', 'lunes',
+            'martes', 'miÃ©rcoles', 'jueves', 'viernes', 'cumpleaÃ±os', 'virus', 'atlas', 'sms']
 
         irregular_words = {
-            'jersey': 'jerséis',
-            'espécimen': 'especímenes',
-            'carácter': 'caracteres',
-            'régimen': 'regímenes',
-            'menú': 'menús',
-            'régimen': 'regímenes',
-            'curriculum': 'currículos',
-            'ultimátum': 'ultimatos',
-            'memorándum': 'memorandos',
-            'referéndum': 'referendos',
-            'sándwich': 'sándwiches'
+            'jersÃ©is': 'jersey',
+            'especÃ­menes': 'espÃ©cimen',
+            'caracteres': 'carÃ¡cter',
+            'regÃ­menes': 'rÃ©gimen',
+            'menÃºs': 'menÃº',
+            'currÃ­culos': 'curriculum',
+            'ultimatos': 'ultimÃ¡tum',
+            'memorandos': 'memorÃ¡ndum',
+            'referendos': 'referÃ©ndum',
+            'sÃ¡ndwiches': 'sÃ¡ndwich'
         }
 
         lower_cased_word = word.lower()
@@ -149,16 +149,16 @@ class Spanish (Base):
                 if re.match('~', replacement):
                     for k in range(1, len(groups)):
                         replacement = replacement.replace('~' + str(
-                            k), self.string_replace(groups[k - 1], 'AEIOUaeiou', 'ÁÉÍÓÚáéíóú'))
+                            k), self.string_replace(groups[k - 1], 'AEIOUaeiou', 'ÃÃ‰ÃÃ“ÃšÃ¡Ã©Ã­Ã³Ãº'))
 
                 result = re.sub(rules[rule][0], replacement, word)
-                # Esta es una posible solución para el problema de dobles
+                # Esta es una posible soluciÃ³n para el problema de dobles
                 # acentos. Un poco guarrillo pero funciona
-                match = re.search('(?i)([áéíóú]).*([áéíóú])', result)
+                match = re.search('(?i)([Ã¡Ã©Ã­Ã³Ãº]).*([Ã¡Ã©Ã­Ã³Ãº])', result)
 
-                if match and len(match.groups()) > 1 and not re.search('(?i)[áéíóú]', word):
+                if match and len(match.groups()) > 1 and not re.search('(?i)[Ã¡Ã©Ã­Ã³Ãº]', word):
                     result = self.string_replace(
-                        result, 'ÁÉÍÓÚáéíóú', 'AEIOUaeiou')
+                        result, 'ÃÃ‰ÃÃ“ÃšÃ¡Ã©Ã­Ã³Ãº', 'AEIOUaeiou')
 
                 return result
 

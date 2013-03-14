@@ -28,10 +28,13 @@ class Spanish (Base):
         u'jersey': u'jerséis',
         u'memorándum': u'memorandos',
         u'menú': u'menús',
+        u'no': u'noes',
         u'país': u'países',
         u'referéndum': u'referendos',
         u'régimen': u'regímenes',
         u'sándwich': u'sándwiches',
+        #u'si': u'sis', # Nota musical ALERTA: ¡provoca efectos secundarios!
+        u'taxi': u'taxis', 
         u'ultimátum': u'ultimatos',
         }
 
@@ -82,7 +85,6 @@ class Spanish (Base):
 
         for rule in rules:
             match = re.search(rule[0], word, re.IGNORECASE)
-
             if match:
                 groups = match.groups()
                 replacement = rule[1]
@@ -92,7 +94,7 @@ class Spanish (Base):
                             k), self.string_replace(groups[k - 1], u'ÁÉÍÓÚáéíóú', u'AEIOUaeiou'))
 
                 result = re.sub(rule[0], replacement, word)
-                # Esto acentua los sustantivos que al pluralizarse se
+                # Esto acentúa los sustantivos que al pluralizarse se
                 # convierten en esdrújulos como esmóquines, jóvenes...
                 match = re.search(u'(?i)([aeiou]).{1,3}([aeiou])nes$', result)
 
@@ -119,7 +121,7 @@ class Spanish (Base):
             [ur'(?i)([aeiou])([ns])es$', u'~1\\2'],
             [ur'(?i)shes$', u'sh'],             # flashes->flash
             [ur'(?i)oides$', u'oide'],          # androides->androide
-            [ur'(?i)(sis|tis|xis)+$', u'\\1'],  # crisis, apendicitis, praxis
+            [ur'(?i)(sis|tis|xis)$', u'\\1'],   # crisis, apendicitis, praxis
             [ur'(?i)(é)s$', u'\\1'],            # bebés->bebé
             [ur'(?i)(ces)$', u'z'],             # luces->luz
             [ur'(?i)([^e])s$', u'\\1'],         # casas->casa

@@ -12,6 +12,7 @@ from rules.spanish import Spanish
 
 class SpanishInflectorTestCase(unittest.TestCase):
     singular_to_plural = {
+        "álbum": "álbumes",
         "almacén": "almacenes",
         "androide": "androides",
         "antifaz": "antifaces",
@@ -28,6 +29,7 @@ class SpanishInflectorTestCase(unittest.TestCase):
 		"convoy": "convoyes",
         "coxis": "coxis",
         "crisis": "crisis",
+        "déficit": "déficits",
         "eje": "ejes",
         "espíritu": "espíritus",
         "flash": "flashes",

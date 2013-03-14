@@ -41,7 +41,7 @@ class Spanish (Base):
     # These words either have the same form in singular and plural, or have no singular form at all
     non_changing_words = [
         u'lunes', u'martes', u'miércoles', u'jueves', u'viernes',
-        u'déficit', u'paraguas', u'tijeras', u'gafas', u'vacaciones', u'víveres',
+        u'paraguas', u'tijeras', u'gafas', u'vacaciones', u'víveres',
         u'cumpleaños', u'virus', u'atlas', u'sms', u'hummus',
     ]
 

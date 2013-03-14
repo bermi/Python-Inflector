@@ -113,16 +113,18 @@ class EnglishInflectorTestCase(unittest.TestCase):
         self.inflector = None
 
     def test_pluralize(self):
-        for singular in self.singular_to_plural.keys():
-            assert self.inflector.pluralize(singular) == self.singular_to_plural[singular], \
-                'English Inlector pluralize(%s) should produce "%s" and NOT "%s"' % (
-                singular, self.singular_to_plural[singular], self.inflector.pluralize(singular))
+        for singular, plural in self.singular_to_plural.iteritems():
+            inflector_pluralize = self.inflector.pluralize(singular)
+            assert inflector_pluralize == plural, \
+                'English Inflector pluralize(%s) should produce "%s" and NOT "%s"' % (
+                    singular, plural, inflector_pluralize)
 
     def test_singularize(self):
-        for singular in self.singular_to_plural.keys():
-            assert self.inflector.singularize(self.singular_to_plural[singular]) == singular, \
-                'English Inlector singularize(%s) should produce "%s" and NOT "%s"' % (
-                self.singular_to_plural[singular], singular, self.inflector.singularize(self.singular_to_plural[singular]))
+        for singular, plural in self.singular_to_plural.iteritems():
+            inflector_singularize = self.inflector.singularize(plural)
+            assert inflector_singularize == singular, \
+                'English Inflector singularize(%s) should produce "%s" and NOT "%s"' % (
+                    plural, singular, inflector_singularize)
 
 
 InflectorTestSuite = unittest.TestSuite()

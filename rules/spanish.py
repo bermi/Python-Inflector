@@ -33,7 +33,7 @@ class Spanish (Base):
         u'referéndum': u'referendos',
         u'régimen': u'regímenes',
         u'sándwich': u'sándwiches',
-        #u'si': u'sis', # Nota musical ALERTA: ¡provoca efectos secundarios!
+        u'si': u'sis', # Nota musical ALERTA: ¡provoca efectos secundarios!
         u'taxi': u'taxis', 
         u'ultimátum': u'ultimatos',
         }
@@ -139,7 +139,7 @@ class Spanish (Base):
                 return utils.deunicodify(word, origType)
 
         for irregular_singular, irregular_plural in self.irregular_words.iteritems():
-            match = re.search(u'(' + irregular_plural + u')$', word, re.IGNORECASE)
+            match = re.search(u'(^' + irregular_plural + u')$', word, re.IGNORECASE)
             if match:
                 result = re.sub(u'(?i)' + irregular_plural + u'$', match.expand(u'\\1')[0] + irregular_singular[1:], word)
                 return utils.deunicodify(result, origType)

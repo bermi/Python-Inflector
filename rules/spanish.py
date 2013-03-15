@@ -78,7 +78,7 @@ class Spanish (Base):
                 return utils.deunicodify(word, origType)
 
         for irregular_singular, irregular_plural in self.irregular_words.iteritems():
-            match = re.search(u'(?i)(' + irregular_singular + u')$', word, re.IGNORECASE)
+            match = re.search(u'(?i)(^' + irregular_singular + u')$', word, re.IGNORECASE)
             if match:
                 result = re.sub(u'(?i)' + irregular_singular + u'$', match.expand(u'\\1')[0] + irregular_plural[1:], word)
                 return utils.deunicodify(result, origType)
